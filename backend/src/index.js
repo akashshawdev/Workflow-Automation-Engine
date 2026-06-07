@@ -25,8 +25,8 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-app.use('/webhooks', express.raw({ type: '*/*' }));
 app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined', { stream: { write: msg => logger.info(msg.trim()) } }));
 
 app.get('/health', (req, res) => {
